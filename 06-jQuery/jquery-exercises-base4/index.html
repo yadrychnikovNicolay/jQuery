@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <ul id="shifumi">
+    <li>Pierre</li>
+    <li>Feuille</li>
+    <li>Ciseaux</li>
+  </ul>
+  <p id="displayChosen">Choisis en un</p>
+  <button type="button" name="button">Shifumi!</button>
+  <br>
+  <br>
+  <p>ur info::::</p>
+  <div>
+    Salary :
+    <input id="salary" type="number" name="salary" value="salary">
+  </div>
+  <div>
+    Gender :
+    <br>
+    <input type="radio" id="radioMale" name="gender" value="male" checked>
+    <label for="radioMale">mal</label>
+    <br>
+    <input type="radio" id="radioFemale" name="gender" value="female">
+    <label for="radioFemale">femal</label>
+  </div>
+  <div>
+    Number of kids :
+    <input id="nbKids" type="number" name="kids" value="kids">
+  </div>
+  <div>
+    <p id="submitForm">SUBMIT</p>
+  </div>
+
+  <div id="formResult">
+    <p id="salaryReduced"></p>
+  </div>
+  <br>
+  <form method="post">
+    <label>First Name:</label>
+    <br>
+    <input type="text" name="fName" id="fName" />
+    <br>
+    <label>Last Name:</label>
+    <br>
+    <input type="text" name="lName" id="lName" />
+    <br>
+    <label>E-Mail:</label>
+    <br>
+    <input type="email" name="email" id="email" />
+    <br>
+    <label>Telephone:</label>
+    <br>
+    <input type="number" name="phone" id="phone" />
+    <br>
+
+    <input type="submit" id="submitExThree">
+  </form>
+  <br>
+  <br>
+    <label>First Name:</label>
+    <br>
+    <input required type="text" name="fName" id="first" />
+    <br>
+    <label>Last Name:</label>
+    <br>
+    <input required type="text" name="lName" id="last" />
+    <br>
+    <label>Birthdate:</label>
+    <br>
+    <input required type="date" name="bDate" id="birthDate" />
+    <br>
+    <label>Birthplace:</label>
+    <br>
+    <input required type="text" name="bPlace" id="birthPlace" />
+    <br>
+    <label>Job:</label>
+    <br>
+    <input required type="text" name="job" id="job" />
+    <br>
+    <label>Company:</label>
+    <br>
+    <input required type="text" name="company" id="company" />
+    <input type="submit" id="submitExFour">
+
+  <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    let chosen = "";
+    let win = 0;
+    let lose = 0;
+    let gameArray = $("li").toArray();
+    console.log(gameArray[0].innerText);
+    let random = function() {
+      return Math.floor(Math.random() * 3);
+    }
+
+
+    $("#shifumi li:nth-of-type(1)").on("click", function() {
+      chosen = $(this).html();
+      $("#displayChosen").text("Vous avez choisi : " + chosen)
+    })
+    $("#shifumi li:nth-of-type(2)").on("click", function() {
+      chosen = $(this).html();
+      $("#displayChosen").html("Vous avez choisi : " + chosen)
+    })
+    $("#shifumi li:nth-of-type(3)").on("click", function() {
+      chosen = $(this).html();
+      $("#displayChosen").text("Vous avez choisi : " + chosen)
+    })
+    $("button").on("click", function() {
+      let botChose = (gameArray[random()]).innerText;
+      console.log("Bot chose : " + botChose);
+      if (chosen == "") {
+        console.log("choisissez pls")
+      } else if (chosen == botChose) {
+        console.log("tie")
+      } else if (chosen == gameArray[0].innerText && botChose == gameArray[2].innerText || chosen == gameArray[1].innerText && botChose == gameArray[0].innerText || chosen == gameArray[2].innerText && botChose == gameArray[1].innerText) {
+        console.log("you won")
+        win++;
+      } else {
+        console.log("you lost")
+        lose++;
+      }
+      console.log(win / (win + lose) * 100)
+    })
+
+    $("#submitForm").on("click", function() {
+      let salary = $("#salary").val()
+      if ($("#radioMale").is(":checked")) {
+        if ($("#nbKids").val() == 3) {
+          let deducedSalary = salary - (salary / 100) * 30;
+          deducedSalary = deducedSalary + (deducedSalary / 100) * 1;
+          $("#salaryReduced").text(deducedSalary)
+        } else if ($("#nbKids").val() > 3) {
+          let deducedSalary = salary - (salary / 100) * 30;
+          deducedSalary = deducedSalary + (deducedSalary / 100) * 2;
+
+          $("#salaryReduced").text(deducedSalary)
+        } else {
+          let deducedSalary = salary - (salary / 100) * 30;
+          $("#salaryReduced").text(deducedSalary)
+        }
+      } else if ($("#radioFemale").is(":checked")) {
+        if ($("#nbKids").val() == 3) {
+          let deducedSalary = salary - (salary / 100) * 30;
+          deducedSalary = deducedSalary + (deducedSalary / 100) * 3;
+          $("#salaryReduced").text(deducedSalary)
+        } else if ($("#nbKids").val() > 3) {
+          let deducedSalary = salary - (salary / 100) * 30;
+          deducedSalary = deducedSalary + (deducedSalary / 100) * 4;
+
+          $("#salaryReduced").text(deducedSalary)
+        } else {
+          let deducedSalary = salary - (salary / 100) * 30;
+          deducedSalary = deducedSalary + (deducedSalary / 100) * 2;
+
+          $("#salaryReduced").text(deducedSalary)
+        }
+
+      }
+
+    })
+
+    $("#fName").on("keydown", function(event) {
+      // Allow controls such as backspace, tab etc.
+      var arr = [8, 9, 16, 17, 20, 35, 36, 37, 38, 39, 40, 45, 46, 109, 189];
+
+      // Allow letters
+      for (var i = 65; i <= 90; i++) {
+        arr.push(i);
+      }
+
+      // Prevent default if not in array
+      if (jQuery.inArray(event.which, arr) === -1) {
+        event.preventDefault();
+      }
+    });
+    $("#lName").on("keydown", function(event) {
+      // Allow controls such as backspace, tab etc.
+      var arr = [8, 9, 16, 17, 20, 35, 36, 37, 38, 39, 40, 45, 46, 109, 189];
+
+      // Allow letters
+      for (var i = 65; i <= 90; i++) {
+        arr.push(i);
+      }
+
+      // Prevent default if not in array
+      if (jQuery.inArray(event.which, arr) === -1) {
+        event.preventDefault();
+      }
+    });
+
+
+
+    // $("#submitExThree").on("click", function() {
+    //   let regEx = new RegExp("/^.+?.+$/");
+    //   let str = $("#fName").text();
+    //   let match = regEx.test(str);
+    //   if (match == false) {
+    //     console.log("false")
+    //   } else {
+    //     console.log("true")
+    //   }
+    // })
+
+    $("#submitExFour").on("click", function(){
+      let finalPhrase;
+      finalPhrase = $("#first").val() + " " + $("#last").val() + ", né le " + $("#birthDate").val() + " à " + $("#birthPlace").val() + " actuellement " + $("#job").val() + " à " +
+      $("#company").val() + "."
+      console.log(finalPhrase)
+    })
+  </script>
+</body>
+
+</html>
